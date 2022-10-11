@@ -47,15 +47,14 @@ food ordering business and build project using Core Java, JDBC and SQL to offer 
 - orderDate
 - orderStatus
 
-## OrderMenuItem
-- menuItem
-- quantity
-- price
-
-## VendorMenuItem
+## MenuItem
 - menuItemId
 - menuItem
 - price
 - category
 - isVeg
 
+## OrderMenuItem
+- menuItem
+- quantity
+- price
