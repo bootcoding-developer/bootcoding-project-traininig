@@ -1,10 +1,11 @@
-package com.bootcoding.restaurant;
+package com.bootcoding.restaurant.model;
 
 import java.util.Date;
 import java.util.List;
 
 public class Order {
     private long orderId; // orderNumber
+
     private double totalAmount;
     private Vendor vendor; // Vendor Detail
     private Customer customer; // Customer Detail
@@ -12,6 +13,8 @@ public class Order {
     private List<OrderMenuItem> menuItems;
     private Date orderDate;
     private String orderStatus;
+
+
 
     public long getOrderId() {
         return orderId;

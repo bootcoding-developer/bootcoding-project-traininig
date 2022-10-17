@@ -1,4 +1,4 @@
-package com.bootcoding.restaurant;
+package com.bootcoding.restaurant.model;
 
 public class MenuItem {
     private long menuItemId;
@@ -6,6 +6,8 @@ public class MenuItem {
     private double price;
     private String category;
     private boolean isVeg;
+
+    private long vendorId;
 
     public long getMenuItemId() {
         return menuItemId;
@@ -45,5 +47,13 @@ public class MenuItem {
 
     public void setVeg(boolean veg) {
         isVeg = veg;
+    }
+
+    public long getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(long vendorId) {
+        this.vendorId = vendorId;
     }
 }

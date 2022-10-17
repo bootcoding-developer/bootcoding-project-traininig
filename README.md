@@ -58,3 +58,34 @@ food ordering business and build project using Core Java, JDBC and SQL to offer 
 - menuItem
 - quantity
 - price
+
+# JDBC Steps
+
+- Load JDBC Driver ("org.postgresql.Driver")
+- Get Connection of your local database
+- Create Statement Object
+- Execute Query (run SQL query in Postgres Db
+from java )
+- Extract ResultSet
+
+
+
+
+
+
+
+
+
+
+
+
+# Test
+# Test
+# Test
+# Test
+# Test
+# Test
+# Test
+# Test
+# Test
+

@@ -1,4 +1,4 @@
-package com.bootcoding.restaurant;
+package com.bootcoding.restaurant.model;
 
 public class Customer {
     private long customerId;
