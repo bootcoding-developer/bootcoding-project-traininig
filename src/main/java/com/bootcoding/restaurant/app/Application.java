@@ -1,9 +1,9 @@
 package com.bootcoding.restaurant.app;
 
+import com.bootcoding.restaurant.dao.*;
 import com.bootcoding.restaurant.model.Customer;
 import com.bootcoding.restaurant.model.Order;
 import com.bootcoding.restaurant.model.Vendor;
-import com.bootcoding.restaurant.dao.CustomerDAO;
 
 import java.util.Date;
 
@@ -16,7 +16,17 @@ public class Application {
         CustomerDAO customerDAO = new CustomerDAO();
         customerDAO.createTable();
 
+        VendorDAO vendorDAO = new VendorDAO();
+        vendorDAO.createTable();
 
+        OrderDAO orderDAO = new OrderDAO();
+        orderDAO.createTable();
+
+        MenuItemDAO menuItemDAO = new MenuItemDAO();
+        menuItemDAO.createTable();
+
+        OrderMenuItemDAO orderMenuItemDAO = new OrderMenuItemDAO();
+        orderMenuItemDAO.createTable();
     }
 
     private static void testSampleData() {
