@@ -4,6 +4,7 @@ import com.bootcoding.restaurant.dao.*;
 import com.bootcoding.restaurant.model.Customer;
 import com.bootcoding.restaurant.model.Order;
 import com.bootcoding.restaurant.model.Vendor;
+import com.bootcoding.restaurant.service.CustomerService;
 
 import java.util.Date;
 
@@ -27,6 +28,9 @@ public class Application {
 
         OrderMenuItemDAO orderMenuItemDAO = new OrderMenuItemDAO();
         orderMenuItemDAO.createTable();
+
+        CustomerService cs = new CustomerService();
+        cs.createDummyCustomers();
     }
 
     private static void testSampleData() {
