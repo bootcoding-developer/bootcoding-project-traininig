@@ -7,12 +7,15 @@ import java.sql.Statement;
 public class OrderMenuItemDAO {
     public static final String TABLE_NAME = "app_order_menu_item";
 
+    private DAOService daoService;
+    public OrderMenuItemDAO(){
+        // Inside Constructor
+        daoService = new DAOService();
+    }
+
     public void createTable(){
         try{
-            Class.forName("org.postgresql.Driver");
-            Connection con = DriverManager
-                    .getConnection("jdbc:postgresql://localhost:5432/postgres",
-                            "postgres", "postgres");
+            Connection con = daoService.getConnection();
             Statement stmt = con.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME
                     + " ( id bigint NOT NULL, "

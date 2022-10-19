@@ -9,23 +9,18 @@ public class CustomerDAO {
 
     public static final String TABLE_NAME = "app_customer";
 
+    private DAOService daoService;
+    public CustomerDAO(){
+        // Inside Constructor
+        daoService = new DAOService();
+    }
+
     public void createTable(){
         try{
-            // 1. Load JDBC Driver
-            Class.forName("org.postgresql.Driver");
 
+            Connection con = daoService.getConnection();
 
-            // 2. Establish Connection with your local database
-            Connection con = DriverManager
-                    .getConnection("jdbc:postgresql://localhost:5432/postgres",
-                            "postgres", "postgres");
-            // 3. Create Statement Object
             Statement stmt = con.createStatement();
-
-            // 4. Execute Query (Statement)
-            // TODO - Create table query
-            // TODO - Change query - For demonstration we have used SELECT query
-
             String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME
                     + " ( id bigint NOT NULL, "
                     + " name text ,"
@@ -38,7 +33,6 @@ public class CustomerDAO {
 
             System.out.println("Create Table Query : " + query);
             stmt.executeUpdate(query);
-
 
         }catch (Exception ex){
             ex.printStackTrace();
