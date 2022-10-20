@@ -13,6 +13,7 @@ public class Application {
     public static void main(String[] args) {
 
         CustomerService cs = new CustomerService();
+        cs.createTable();
         cs.createDummyCustomers();
 
     }

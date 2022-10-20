@@ -29,13 +29,10 @@ public class CustomerService {
 
             customerDAO.insertCustomer(customer);
 
-            System.out.println(" Customer Details: ");
-            System.out.println("Name : " + customer.getName());
-            System.out.println("City : " + customer.getCity());
-            System.out.println("Address : " + customer.getAddress());
-            System.out.println("State : "+ customer.getState());
-            System.out.println("Email Id : " + customer.getEmailId());
-            System.out.println("Phone : " + customer.getPhoneNumber());
         }
+    }
+
+    public void createTable() {
+        customerDAO.createTable();
     }
 }
