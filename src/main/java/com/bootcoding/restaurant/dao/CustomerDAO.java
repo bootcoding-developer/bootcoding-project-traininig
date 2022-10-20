@@ -21,13 +21,11 @@ public class CustomerDAO {
     public void insertCustomer(Customer customer) {
         try {
             Connection con = daoService.getConnection();
-            if(!exists(con, customer.getCustomerId())) {
-                String sql = "INSERT INTO " + TABLE_NAME
-                        + " VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+            if(!daoService.exists(con, TABLE_NAME, customer.getCustomerId())) {
+                String sql = "INSERT INTO " + TABLE_NAME + " VALUES ( ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setLong(1, customer.getCustomerId());
                 ps.setString(2, customer.getName());
-
                 ps.setString(3, customer.getAddress());
                 ps.setLong(4, customer.getPhoneNumber());
                 ps.setString(5, customer.getCity());
@@ -44,21 +42,6 @@ public class CustomerDAO {
         }
     }
 
-    public boolean exists(Connection con, long id){
-        try{
-            Statement stmt = con.createStatement();
-            String sql = "Select * from " + TABLE_NAME
-                    + " where id = " + id;
-            //System.out.println(sql);
-            ResultSet rs = stmt.executeQuery(sql);
-            if(rs.next()){
-                return true;
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return false;
-    }
     public void createTable() {
         try {
 
