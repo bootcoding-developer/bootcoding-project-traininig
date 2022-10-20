@@ -5,6 +5,7 @@ import com.bootcoding.restaurant.model.Customer;
 import com.bootcoding.restaurant.model.Order;
 import com.bootcoding.restaurant.model.Vendor;
 import com.bootcoding.restaurant.service.CustomerService;
+import com.bootcoding.restaurant.service.VendorService;
 
 import java.util.Date;
 
@@ -16,6 +17,9 @@ public class Application {
         cs.createTable();
         cs.createDummyCustomers();
 
+        VendorService vendorService = new VendorService();
+        vendorService.createTable();
+        vendorService.createVendors();
     }
 
 
