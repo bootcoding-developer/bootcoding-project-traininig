@@ -32,11 +32,11 @@ public class CustomerDAO {
                 ps.setString(6, customer.getState());
                 ps.setString(7, customer.getEmailId());
                 ps.executeUpdate();
-                con.close();
                 System.out.println(customer.getCustomerId() + " inserted into DB!");
             }else{
                 System.out.println(customer.getCustomerId() + " already exists!");
             }
+            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
