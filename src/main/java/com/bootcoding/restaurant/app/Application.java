@@ -12,26 +12,12 @@ public class Application {
 
     public static void main(String[] args) {
 
-        testSampleData();
-
-        CustomerDAO customerDAO = new CustomerDAO();
-        customerDAO.createTable();
-
-        VendorDAO vendorDAO = new VendorDAO();
-        vendorDAO.createTable();
-
-        OrderDAO orderDAO = new OrderDAO();
-        orderDAO.createTable();
-
-        MenuItemDAO menuItemDAO = new MenuItemDAO();
-        menuItemDAO.createTable();
-
-        OrderMenuItemDAO orderMenuItemDAO = new OrderMenuItemDAO();
-        orderMenuItemDAO.createTable();
-
         CustomerService cs = new CustomerService();
         cs.createDummyCustomers();
+
     }
+
+
 
     private static void testSampleData() {
         Customer ramesh = new Customer();
