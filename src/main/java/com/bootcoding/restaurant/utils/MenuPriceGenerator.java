@@ -5,7 +5,7 @@ import java.util.Random;
 public class MenuPriceGenerator {
 
     final static int MAX = 300;
-    final static int MIN = 75;
+    final static int MIN = 180;
     static Random random = new Random();
 
     public static int getPrice(){

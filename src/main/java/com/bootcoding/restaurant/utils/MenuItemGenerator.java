@@ -35,7 +35,6 @@ public class MenuItemGenerator {
 
     public static String getMenuItemByVendorCategory(String category){
         List<String> menuItems = vendorMenuItems.get(category);
-        System.out.println("Category = " + category);
         int index = random.nextInt(menuItems.size());
         return menuItems.get(index);
     }
