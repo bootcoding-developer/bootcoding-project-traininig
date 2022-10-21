@@ -20,6 +20,7 @@ public class Application {
         VendorService vendorService = new VendorService();
         vendorService.createTable();
         vendorService.createVendors();
+
     }
 
 

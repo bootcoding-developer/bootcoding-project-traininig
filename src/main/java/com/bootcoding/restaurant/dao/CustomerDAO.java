@@ -60,6 +60,7 @@ public class CustomerDAO {
 
             System.out.println("Create Table Query : " + query);
             stmt.executeUpdate(query);
+            con.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();

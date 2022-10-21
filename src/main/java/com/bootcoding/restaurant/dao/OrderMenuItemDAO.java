@@ -28,6 +28,7 @@ public class OrderMenuItemDAO {
 
             System.out.println("Create Table Query : " + query);
             stmt.executeUpdate(query);
+            con.close();
 
 
         }catch (Exception ex){
