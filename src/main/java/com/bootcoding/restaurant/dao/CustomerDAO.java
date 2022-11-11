@@ -2,10 +2,7 @@ package com.bootcoding.restaurant.dao;
 
 import com.bootcoding.restaurant.model.Customer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class CustomerDAO {
 
@@ -19,9 +16,10 @@ public class CustomerDAO {
     }
 
     public void insertCustomer(Customer customer) {
+        Connection con = null;
         try {
-            Connection con = daoService.getConnection();
-            if(!daoService.exists(con, TABLE_NAME, customer.getCustomerId())) {
+            con = daoService.getConnection();
+            if (!daoService.exists(con, TABLE_NAME, customer.getCustomerId())) {
                 String sql = "INSERT INTO " + TABLE_NAME + " VALUES ( ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setLong(1, customer.getCustomerId());
@@ -32,20 +30,25 @@ public class CustomerDAO {
                 ps.setString(6, customer.getState());
                 ps.setString(7, customer.getEmailId());
                 ps.executeUpdate();
-                System.out.println(customer.getCustomerId() + " inserted into DB!");
-            }else{
+                System.out.println(customer.getName() + " as a customer has been registered successfully, CustomerId: " + customer.getCustomerId());
+            } else {
                 System.out.println(customer.getCustomerId() + " already exists!");
             }
-            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     public void createTable() {
+        Connection con = null;
         try {
-
-            Connection con = daoService.getConnection();
+            con = daoService.getConnection();
 
             Statement stmt = con.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME
@@ -58,12 +61,48 @@ public class CustomerDAO {
                     + " email_id text, "
                     + " CONSTRAINT app_customer_pk PRIMARY KEY (id))";
 
-            System.out.println("Create Table Query : " + query);
+            System.out.println("Customer Table Query : " + query);
             stmt.executeUpdate(query);
-            con.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
+    }
+
+
+    public Customer getCustomerById(long customerId) {
+        Connection con = null;
+        try {
+            con = daoService.getConnection();
+            Statement stmt = con.createStatement();
+            String sql = "Select * from " + TABLE_NAME + " where id = " + customerId;
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                Customer customer = new Customer();
+                customer.setCustomerId(rs.getLong("id"));
+                customer.setName(rs.getString("name"));
+                customer.setAddress(rs.getString("address"));
+                customer.setCity(rs.getString("city"));
+                customer.setState(rs.getString("state"));
+                customer.setPhoneNumber(rs.getLong("phone_number"));
+                customer.setEmailId(rs.getString("email_id"));
+                return customer;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
     }
 }

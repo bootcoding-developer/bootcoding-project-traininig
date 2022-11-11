@@ -1,27 +1,28 @@
 package com.bootcoding.restaurant.service;
 
 import com.bootcoding.restaurant.dao.MenuItemDAO;
-import com.bootcoding.restaurant.dao.VendorDAO;
 import com.bootcoding.restaurant.model.MenuItem;
 import com.bootcoding.restaurant.model.Vendor;
-import com.bootcoding.restaurant.utils.*;
+import com.bootcoding.restaurant.utils.MenuItemGenerator;
+import com.bootcoding.restaurant.utils.MenuPriceGenerator;
+import com.bootcoding.restaurant.utils.QuantityGenerator;
 
 public class VendorMenuItemService {
 
     private MenuItemDAO menuItemDAO;
 
-    public VendorMenuItemService(){
+    public VendorMenuItemService() {
         menuItemDAO = new MenuItemDAO();
     }
 
-    public void createMenuItems(Vendor vendor){
-        for(int i = 0; i < 10; i++){
+    public void createMenuItems(Vendor vendor) {
+        for (int i = 1; i <= QuantityGenerator.getQuantity(5,10); i++) {
             MenuItem menuItem = new MenuItem();
-            menuItem.setMenuItemId(vendor.getVendorId() * 100 + (i+1));
+            menuItem.setMenuItemId(vendor.getVendorId() * 100 + i);
             menuItem.setVendorId(vendor.getVendorId());
             menuItem.setCategory(vendor.getCategory());
             menuItem.setMenuItem(MenuItemGenerator.getMenuItemByVendorCategory(vendor.getCategory()));
-            menuItem.setVeg(false); // TODO For you
+            menuItem.setVeg(true);
             menuItem.setPrice(MenuPriceGenerator.getPrice());
             menuItemDAO.insertMenuItem(menuItem);
         }

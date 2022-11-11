@@ -1,10 +1,10 @@
 package com.bootcoding.restaurant.dao;
 
 import com.bootcoding.restaurant.model.MenuItem;
-import com.bootcoding.restaurant.model.Vendor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MenuItemDAO {
@@ -18,10 +18,11 @@ public class MenuItemDAO {
     }
 
     public void insertMenuItem(MenuItem menuItem) {
+        Connection con = null;
         try {
-            Connection con = daoService.getConnection();
+            con = daoService.getConnection();
             long menuItemId = menuItem.getMenuItemId();
-            if(!daoService.exists(con, TABLE_NAME, menuItemId)) {
+            if (!daoService.exists(con, TABLE_NAME, menuItemId)) {
                 String sql = "INSERT INTO " + TABLE_NAME + " VALUES ( ?, ?, ?, ?, ?, ?)";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setLong(1, menuItemId);
@@ -31,19 +32,26 @@ public class MenuItemDAO {
                 ps.setString(5, menuItem.getCategory());
                 ps.setBoolean(6, menuItem.isVeg());
                 ps.executeUpdate();
-                System.out.println("Menu Item - Id " + menuItemId + " is inserted into DB!");
-            }else{
-                System.out.println("Menu Item - Id " + menuItemId + " already exist!");
+//                System.out.println("Menu Item - Id " + menuItemId + " is inserted into DB!");
+            } else {
+                System.out.println("Menu Item - Id " + menuItemId + " already exists!");
             }
-            con.close();
+
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     public void createTable() {
+        Connection con = null;
         try {
-            Connection con = daoService.getConnection();
+            con = daoService.getConnection();
 
             Statement stmt = con.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME
@@ -55,11 +63,16 @@ public class MenuItemDAO {
                     + " is_veg bool , "
                     + " CONSTRAINT app_menu_item_pk PRIMARY KEY (id))";
 
-            System.out.println("Create Table Query : " + query);
+//            System.out.println("Create Table Query : " + query);
             stmt.executeUpdate(query);
-            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

@@ -10,15 +10,16 @@ import com.bootcoding.restaurant.utils.PhoneNumberGenerator;
 public class CustomerService {
 
     private CustomerDAO customerDAO;
+    private long BEGIN_VALUE = 100;
 
-    public CustomerService(){
+    public CustomerService() {
         customerDAO = new CustomerDAO();
     }
 
-    public void createDummyCustomers(){
-        for(int i = 0; i < 100; i++){
+    public void createDummyCustomers() {
+        for (int i = 1; i <= 500; i++) {
             Customer customer = new Customer();
-            customer.setCustomerId(i + 1);
+            customer.setCustomerId(BEGIN_VALUE + i);
             customer.setName(NameGenerator.getName());
             customer.setAddress(AddressGenerator.getAddress());
             customer.setEmailId(EmailIdGenerator.
@@ -30,6 +31,10 @@ public class CustomerService {
             customerDAO.insertCustomer(customer);
 
         }
+    }
+
+    public Customer findById(long customerId) {
+        return customerDAO.getCustomerById(customerId);
     }
 
     public void createTable() {

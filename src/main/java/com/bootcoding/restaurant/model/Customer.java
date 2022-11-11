@@ -9,11 +9,11 @@ public class Customer {
     private String state;
     private String emailId;
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 

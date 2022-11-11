@@ -5,12 +5,12 @@ import java.util.*;
 public class RestaurantCategoryGenerator {
 
     public static final Map<String, String> namesWithCategory = new LinkedHashMap<>();
-    private static final List<String> vendorNames = new ArrayList<>();
     public static final String ALL = "All";
     public static final String BURGER = "Burger";
     public static final String PURE_VEG = "Pure Veg";
     public static final String PIZZA = "Pizza";
     public static final String BIRYANI = "Biryani";
+    private static final List<String> vendorNames = new ArrayList<>();
 
     static {
         namesWithCategory.put("Hotel Al-Zam Zam", ALL);
@@ -33,17 +33,18 @@ public class RestaurantCategoryGenerator {
         namesWithCategory.put("Ram Bhandar", PURE_VEG);
         namesWithCategory.put("Haldiram", PURE_VEG);
 
-       vendorNames.addAll(namesWithCategory.keySet());
+        vendorNames.addAll(namesWithCategory.keySet());
     }
 
 
-    public static String getName(){
+    public static String getName() {
         Random random = new Random();
         int randomIndex = random.nextInt(vendorNames.size());
         String name = vendorNames.get(randomIndex);
         return name;
     }
-    public static String getCategory(String name){
+
+    public static String getCategory(String name) {
         return namesWithCategory.get(name);
     }
 

@@ -8,7 +8,7 @@ public class PhoneNumberGenerator {
     final static int MIN = 100000000;
     static Random random = new Random();
 
-    public static int getPhoneNumber(){
+    public static int getPhoneNumber() {
         int number = random.nextInt(MAX - MIN); // 899999
         int otp = MIN + number;
         //System.out.println(" Phone Number = " + otp);
@@ -16,7 +16,7 @@ public class PhoneNumberGenerator {
     }
 
     public static void main(String[] args) {
-        for(int i =0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             PhoneNumberGenerator.getPhoneNumber();
         }
     }

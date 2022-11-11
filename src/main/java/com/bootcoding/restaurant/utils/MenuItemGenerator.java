@@ -33,13 +33,13 @@ public class MenuItemGenerator {
         vendorMenuItems.put(RestaurantCategoryGenerator.PURE_VEG, menuItemsOfPureVegCategory);
     }
 
-    public static String getMenuItemByVendorCategory(String category){
+    public static String getMenuItemByVendorCategory(String category) {
         List<String> menuItems = vendorMenuItems.get(category);
         int index = random.nextInt(menuItems.size());
         return menuItems.get(index);
     }
 
-    public static String getMenuItemByVendor(String vendorName){
+    public static String getMenuItemByVendor(String vendorName) {
         String category = RestaurantCategoryGenerator.getCategory(vendorName);
         String menuItem = getMenuItemByVendorCategory(category);
         return menuItem;

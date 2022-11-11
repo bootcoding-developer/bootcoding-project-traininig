@@ -15,7 +15,6 @@ public class Order {
     private String orderStatus;
 
 
-
     public long getOrderId() {
         return orderId;
     }

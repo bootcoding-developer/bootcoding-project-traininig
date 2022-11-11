@@ -91,4 +91,5 @@ public class Vendor {
     public void setVendorId(long vendorId) {
         this.vendorId = vendorId;
     }
+
 }

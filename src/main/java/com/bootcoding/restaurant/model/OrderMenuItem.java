@@ -2,6 +2,7 @@ package com.bootcoding.restaurant.model;
 
 
 public class OrderMenuItem {
+    private long id;
     private long orderId;
     private String menuItem;
     private int quantity;
@@ -47,5 +48,13 @@ public class OrderMenuItem {
 
     public void setOrderId(long orderId) {
         this.orderId = orderId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

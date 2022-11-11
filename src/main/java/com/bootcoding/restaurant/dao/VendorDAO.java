@@ -1,28 +1,24 @@
 package com.bootcoding.restaurant.dao;
 
-import com.bootcoding.restaurant.model.Customer;
 import com.bootcoding.restaurant.model.Vendor;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.*;
 
 public class VendorDAO {
 
     public static final String TABLE_NAME = "app_vendor";
     private DAOService daoService;
 
-    public VendorDAO(){
+    public VendorDAO() {
         // Inside Constructor
         daoService = new DAOService();
     }
 
-
     public void insertVendor(Vendor vendor) {
+        Connection con = null;
         try {
-            Connection con = daoService.getConnection();
-            if(!daoService.exists(con, TABLE_NAME, vendor.getVendorId())) {
+            con = daoService.getConnection();
+            if (!daoService.exists(con, TABLE_NAME, vendor.getVendorId())) {
                 String sql = "INSERT INTO " + TABLE_NAME + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setLong(1, vendor.getVendorId());
@@ -34,19 +30,25 @@ public class VendorDAO {
                 ps.setString(7, vendor.getEmailId());
                 ps.setString(8, vendor.getCategory());
                 ps.executeUpdate();
-                System.out.println("Vendor Id " + vendor.getVendorId() + " is inserted into DB!");
-            }else{
-                System.out.println("Vendor Id " + vendor.getVendorId() + " already exist!");
+                System.out.println(vendor.getName() + " restaurant has been registered successfully, RestaurantId: " + vendor.getVendorId());
+            } else {
+                System.out.println("Vendor Id " + vendor.getVendorId() + " already exists!");
             }
-            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
-    public void createTable(){
-        try{
-            Connection con = daoService.getConnection();
+    public void createTable() {
+        Connection con = null;
+        try {
+            con = daoService.getConnection();
             Statement stmt = con.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME
                     + " ( id bigint NOT NULL, "
@@ -61,10 +63,45 @@ public class VendorDAO {
 
             System.out.println("Create Table Query : " + query);
             stmt.executeUpdate(query);
-            con.close();
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
+    }
+
+    public Vendor getVendorById(long vendorId) {
+        Connection con = null;
+        try {
+            con = daoService.getConnection();
+            Statement stmt = con.createStatement();
+            String sql = "Select * from " + TABLE_NAME + " where id = " + vendorId;
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                Vendor vendor = new Vendor();
+                vendor.setVendorId(rs.getLong("id"));
+                vendor.setName(rs.getString("name"));
+                vendor.setCategory(rs.getString("category"));
+                vendor.setCity(rs.getString("city"));
+                vendor.setState(rs.getString("state"));
+                vendor.setPhoneNumber(rs.getLong("phone_number"));
+                vendor.setEmailId(rs.getString("email_id"));
+                return vendor;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
     }
 }
